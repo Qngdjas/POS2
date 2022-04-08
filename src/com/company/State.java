@@ -1,6 +1,5 @@
 package com.company;
 
-public class State {
+public abstract class State {
 
-    abstract void switchState();
 }

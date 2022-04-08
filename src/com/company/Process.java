@@ -11,6 +11,7 @@ public class Process {
 
     public Process(int id) {
         this.id = id;
+        //createTask();
     }
 
     public int getId() {
@@ -22,23 +23,23 @@ public class Process {
     }
 
     //Имитация выполнения процесса
-    private void execution(int time) {
+    public void execution(int time) {
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
+            int i = 1;
             @Override
             public void run() {
-                for (int i = 1; i <= time; i++) {
-                    if (i == 10) {
-                        System.out.println("Процесс" + id + "выполнен");
-                        complete = true;
-                    } else {
-                        System.out.println("Выполнение процесса" + id + ": " + Math.floor(i / time) + "%");
-                    }
+                if (i == time) {
+                    System.out.println("Процесс " + id + " выполнен");
+                    complete = true;
+                    timer.cancel();
+                } else {
+                    System.out.println("Выполнение процесса " + id + ": " + Math.floor((double) i / time * 100) + "%");
+                    i++;
                 }
             }
         };
-
-        timer.schedule(task, new Date());
+        timer.schedule(task, new Date(), 1000);
     }
 
 }
